@@ -23,7 +23,7 @@ This project is meant to be used together with the [baseapp-frontend](https://gi
 ## Installation
 
 1. Clone the repository:
-2. Create a virtual enviroment and install the dependencies:
+2. Create a virtual enviroment and install the dependencies
 
 ```bash
 python3 -m venv .venv
