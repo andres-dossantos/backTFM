@@ -73,7 +73,7 @@ class UnemploymentSupportChoices(models.TextChoices):
     NO = 'No me importa.'
 
 class Form(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, unique=True)
     age = models.IntegerField(null=False)
     gender = models.CharField(max_length=255, null=False, choices=GenderChoices.choices, default=GenderChoices.MALE)
     salary = models.FloatField(null=False)
