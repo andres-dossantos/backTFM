@@ -5,7 +5,7 @@ class GenderChoices(models.TextChoices):
     MALE = 'Hombre'
     FEMALE = 'Mujer'
 
-class AgricultureEconomyChoices(models.TextChoices):
+'''class AgricultureEconomyChoices(models.TextChoices):
     SI = 'Sí, prefiero un país con oportunidades en agricultura.'
     NO = 'No, prefiero un país con una economía diversificada.'
     NO_IMPORTA = 'No me importa.'
@@ -71,29 +71,49 @@ class PovertyReductionChoices(models.TextChoices):
 class UnemploymentSupportChoices(models.TextChoices):
     SI = 'Sí, quiero un país con apoyo social.'
     NO = 'No me importa.'
+'''
+
+class AnswersChoices(models.TextChoices):
+    MUY_IMPORTANTE = "Muy importante"
+    IMPORTANTE = "Importante"
+    POCO_IMPORTANTE = "Poco importante"
+    NADA_IMPORTANTE = "Nada importante"
 
 class Form(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, unique=True)
     age = models.IntegerField(null=False)
     gender = models.CharField(max_length=255, null=False, choices=GenderChoices.choices, default=GenderChoices.MALE)
-    salary = models.FloatField(null=False)
-    agriculture_economy = models.CharField(max_length=255, null=False, choices=AgricultureEconomyChoices.choices, default=AgricultureEconomyChoices.SI)
-    ease_of_business = models.CharField(max_length=255, null=False, choices=EaseOfBusinessChoices.choices, default=EaseOfBusinessChoices.MUY_IMPORTANTE)
-    foreign_investment = models.CharField(max_length=255, null=False, choices=MobileAccessChoices.choices, default=MobileAccessChoices.MUY_IMPORTANTE)
-    export_economy = models.CharField(max_length=255, null=False, choices=ExportEconomyChoices.choices, default=ExportEconomyChoices.SI)
-    work_sector = models.CharField(max_length=255, null=False, choices=WorkSectorChoices.choices, default=WorkSectorChoices.TECNOLOGIA_INNOVACION)
-    unemployment_rate = models.CharField(max_length=255, null=False, choices=UnemploymentRateChoices.choices, default=UnemploymentRateChoices.BAJA_TASA)
-    job_security = models.CharField(max_length=255, null=False, choices=JobSecurityChoices.choices, default=JobSecurityChoices.EMPLEOS_ESTABLES)
-    electricity_access = models.CharField(max_length=255, null=False, choices=MobileAccessChoices.choices, default=MobileAccessChoices.MUY_IMPORTANTE)
-    air_pollution = models.CharField(max_length=255, null=False, choices=AirPollutionChoices.choices, default=AirPollutionChoices.MUY_IMPORTANTE)
-    living_area = models.CharField(max_length=255, null=False, choices=LivingAreaChoices.choices, default=LivingAreaChoices.CIUDAD)
-    healthcare_importance = models.CharField(max_length=255, null=False, choices=HealthcareImportanceChoices.choices, default=HealthcareImportanceChoices.MUY_IMPORTANTE)
-    mobile_access = models.CharField(max_length=255, null=False, choices=MobileAccessChoices.choices, default=MobileAccessChoices.MUY_IMPORTANTE)
-    research_development = models.CharField(max_length=255, null=False, choices=ResearchDevelopmentChoices.choices, default=ResearchDevelopmentChoices.SI)
-    low_taxes = models.CharField(max_length=255, null=False, choices=LowTaxesChoices.choices, default=LowTaxesChoices.SI)
-    company_registration = models.CharField(max_length=255, null=False, choices=CompanyRegistrationChoices.choices, default=CompanyRegistrationChoices.SI)
-    poverty_reduction = models.CharField(max_length=255, null=False, choices=PovertyReductionChoices.choices, default=PovertyReductionChoices.MUY_IMPORTANTE)
-    unemployment_support = models.CharField(max_length=255, null=False, choices=UnemploymentSupportChoices.choices, default=UnemploymentSupportChoices.SI)
+    country_salary = models.CharField(max_length=255, null=False, choices=AnswersChoices.choices, default=AnswersChoices.IMPORTANTE)
+    job_security = models.CharField(max_length=255, null=False, choices=AnswersChoices.choices, default=AnswersChoices.IMPORTANTE)
+    unemployment_rate = models.CharField(max_length=255, null=False, choices=AnswersChoices.choices, default=AnswersChoices.IMPORTANTE)
+    corruption = models.CharField(max_length=255, null=False, choices=AnswersChoices.choices, default=AnswersChoices.IMPORTANTE)
+    healthcare_importance = models.CharField(max_length=255, null=False, choices=AnswersChoices.choices, default=AnswersChoices.IMPORTANTE)
+    economy = models.CharField(max_length=255, null=False, choices=AnswersChoices.choices, default=AnswersChoices.IMPORTANTE)
+    freedom = models.CharField(max_length=255, null=False, choices=AnswersChoices.choices, default=AnswersChoices.IMPORTANTE)
+    air_pollution = models.CharField(max_length=255, null=False, choices=AnswersChoices.choices, default=AnswersChoices.IMPORTANTE)
+    low_inflation = models.CharField(max_length=255, null=False, choices=AnswersChoices.choices, default=AnswersChoices.IMPORTANTE)
+    foreign_investment = models.CharField(max_length=255, null=False, choices=AnswersChoices.choices, default=AnswersChoices.IMPORTANTE)
+    city_growth = models.CharField(max_length=255, null=False, choices=AnswersChoices.choices, default=AnswersChoices.IMPORTANTE)
+    living_area = models.CharField(max_length=255, null=False, choices=AnswersChoices.choices, default=AnswersChoices.IMPORTANTE)
+
+    #salary = models.FloatField(null=False)
+    #agriculture_economy = models.CharField(max_length=255, null=False, choices=AgricultureEconomyChoices.choices, default=AgricultureEconomyChoices.SI)
+    #ease_of_business = models.CharField(max_length=255, null=False, choices=EaseOfBusinessChoices.choices, default=EaseOfBusinessChoices.MUY_IMPORTANTE)
+    #foreign_investment = models.CharField(max_length=255, null=False, choices=MobileAccessChoices.choices, default=MobileAccessChoices.MUY_IMPORTANTE)
+    #export_economy = models.CharField(max_length=255, null=False, choices=ExportEconomyChoices.choices, default=ExportEconomyChoices.SI)
+    #work_sector = models.CharField(max_length=255, null=False, choices=WorkSectorChoices.choices, default=WorkSectorChoices.TECNOLOGIA_INNOVACION)
+    #unemployment_rate = models.CharField(max_length=255, null=False, choices=UnemploymentRateChoices.choices, default=UnemploymentRateChoices.BAJA_TASA)
+    #job_security = models.CharField(max_length=255, null=False, choices=JobSecurityChoices.choices, default=JobSecurityChoices.EMPLEOS_ESTABLES)
+    #electricity_access = models.CharField(max_length=255, null=False, choices=MobileAccessChoices.choices, default=MobileAccessChoices.MUY_IMPORTANTE)
+    #air_pollution = models.CharField(max_length=255, null=False, choices=AirPollutionChoices.choices, default=AirPollutionChoices.MUY_IMPORTANTE)
+    #living_area = models.CharField(max_length=255, null=False, choices=LivingAreaChoices.choices, default=LivingAreaChoices.CIUDAD)
+    #healthcare_importance = models.CharField(max_length=255, null=False, choices=HealthcareImportanceChoices.choices, default=HealthcareImportanceChoices.MUY_IMPORTANTE)
+    #mobile_access = models.CharField(max_length=255, null=False, choices=MobileAccessChoices.choices, default=MobileAccessChoices.MUY_IMPORTANTE)
+    #research_development = models.CharField(max_length=255, null=False, choices=ResearchDevelopmentChoices.choices, default=ResearchDevelopmentChoices.SI)
+    #low_taxes = models.CharField(max_length=255, null=False, choices=LowTaxesChoices.choices, default=LowTaxesChoices.SI)
+    #company_registration = models.CharField(max_length=255, null=False, choices=CompanyRegistrationChoices.choices, default=CompanyRegistrationChoices.SI)
+    #poverty_reduction = models.CharField(max_length=255, null=False, choices=PovertyReductionChoices.choices, default=PovertyReductionChoices.MUY_IMPORTANTE)
+    # unemployment_support = models.CharField(max_length=255, null=False, choices=UnemploymentSupportChoices.choices, default=UnemploymentSupportChoices.SI)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
