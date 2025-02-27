@@ -10,7 +10,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'M
 
 import ipynb.fs.defs.prueba_5 as notebook_module
 
-from .serializers import FormSerializer
+from .serializers import FormSerializer, ResultSerializer
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 from forms.models import Form
 
 
@@ -25,15 +26,19 @@ class FormViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Form.objects.all().order_by('user__username')
 
-    @action(detail=False, methods=['get'])
+
+
+    @extend_schema(
+        responses={
+            200: ResultSerializer(many=True)
+        }
+    )
+    @action(detail=False, methods=['get'], serializer_class=ResultSerializer)
     def result(self, request, pk=None):
-        # user = request.user
-        # print(user)
-        # user_form = Form.objects.filter(user=user).first()
-        # if not user_form:
-        #     return Response(status=status.HTTP_404_NOT_FOUND)
-        # print(user_form)
-        user_form = Form.objects.first()
+        user = request.user
+        user_form = Form.objects.filter(user=user).first()
+        if not user_form:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
         respuestas_usuario = {
             "¿Qué tan importante es para ti que los salarios en el país sean altos?": user_form.country_salary,
@@ -56,4 +61,6 @@ class FormViewSet(viewsets.ModelViewSet):
 
         top_paises = top_paises_df.to_dict(orient='records')
 
-        return Response(top_paises, status=status.HTTP_200_OK)
+        serializer = ResultSerializer(top_paises, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
