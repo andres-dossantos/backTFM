@@ -22,6 +22,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from auth.views import EmailTokenObtainPairView, UserRegistrationView
 from users.urls import urlpatterns as user_urls
 from forms.urls import forms_url_patterns
+from predictions.urls import predictions_url_patterns
 
 api_urlpatterns = [
     path('auth/login/', EmailTokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -29,6 +30,7 @@ api_urlpatterns = [
     path('auth/register/', UserRegistrationView.as_view(), name='user_registration'),
     path('', include(user_urls), name='user'),
     path('', include(forms_url_patterns), name='form'),
+    path('', include(predictions_url_patterns), name='prediction'),
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "docs/", SpectacularSwaggerView.as_view(url_name="api:schema"), name="docs"

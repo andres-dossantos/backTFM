@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     "forms.apps.FormsConfig",
     "users.apps.UsersConfig",
+    'predictions.apps.PredictionsConfig',
 ]
 
 MIDDLEWARE = [
