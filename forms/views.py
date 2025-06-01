@@ -8,7 +8,7 @@ import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Modelo')))
 
-import ipynb.fs.defs.prueba_5 as notebook_module
+# import ipynb.fs.defs.prueba_5 as notebook_module
 
 from .serializers import FormSerializer, ResultSerializer
 from drf_spectacular.utils import extend_schema, OpenApiParameter
@@ -55,12 +55,12 @@ class FormViewSet(viewsets.ModelViewSet):
             "¿Qué tan importante es que haya muchas opciones de comercio, servicios y entretenimiento?": user_form.living_area
         }
 
-        top_paises_df = notebook_module.recomendar_paises(respuestas_usuario)
+        # top_paises_df = notebook_module.recomendar_paises(respuestas_usuario)
 
-        print(top_paises_df)
+        # print(top_paises_df)
 
-        top_paises = top_paises_df.to_dict(orient='records')
+        # top_paises = top_paises_df.to_dict(orient='records')
 
-        serializer = ResultSerializer(top_paises, many=True)
+        # serializer = ResultSerializer(top_paises, many=True)
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        # return Response(serializer.data, status=status.HTTP_200_OK)
