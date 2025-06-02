@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 import pandas as pd
 
-# Create your views here.
+# Create your views here.s
 
 
 class PredictionViewSet(viewsets.ReadOnlyModelViewSet):
