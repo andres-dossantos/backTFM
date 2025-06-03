@@ -1,6 +1,7 @@
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from .models import Prediction
+from .predictiveModel import final_result
 from .serializers import PredictionSerializer, PredictionUploadSerializer
 from rest_framework.response import Response
 from rest_framework import status
@@ -25,8 +26,10 @@ class PredictionViewSet(viewsets.ReadOnlyModelViewSet):
             return Response({'error': 'No file provided'}, status=status.HTTP_400_BAD_REQUEST)
         
         try:
-            df = pd.read_csv(file) # usar esta varible para llamar la funcion de prediccion
-            print(f"DataFrame: {df}")
+            df = pd.read_csv(file)
+            r_10_user, r_21_user, r_42_user = final_result(df)
+            prediction = Prediction.objects.create(user=request.user, ten_km_time=r_10_user, half_marathon_time= r_21_user, marathon_time=r_42_user)
+            prediction.save()
             return Response({'message': 'File uploaded successfully'}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)

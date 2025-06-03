@@ -5,9 +5,9 @@ from users.models import User
 
 class Prediction(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    ten_km_time = models.FloatField()
-    half_marathon_time = models.FloatField()
-    marathon_time = models.FloatField()
+    ten_km_time = models.CharField(max_length=120)
+    half_marathon_time = models.CharField(max_length=120)
+    marathon_time = models.CharField(max_length=120)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
