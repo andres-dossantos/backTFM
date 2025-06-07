@@ -295,8 +295,6 @@ def final_result(df_user):
 
     carreras_nuevo_usuario = df_valid.to_dict(orient="records")
 
-    print("Entro al modelo predictivo")
-
     # Llama al modelo
     resultado = predecir_tiempos_tres_distancias(clean_df(), carreras_nuevo_usuario)
 
