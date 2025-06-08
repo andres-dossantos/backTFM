@@ -215,14 +215,12 @@ def clean_df():
     return df
 
 def final_result(df_user):
-    # --- 1. Conversión de tiempo ---
     df_user["Time (s)"] = df_user["Time"].apply(time_to_seconds)
     df_user["Elapsed Time (s)"] = df_user["Elapsed Time"].apply(time_to_seconds)
     df_user["Avg Pace (s/km)"] = df_user["Avg Pace"].apply(time_to_seconds)
     df_user["Best Pace (s/km)"] = df_user["Best Pace"].apply(time_to_seconds)
     df_user = df_user.drop(["Time", "Elapsed Time", "Avg Pace", "Best Pace"], axis=1)
 
-    # --- 2. Reemplazos y conversiones ---
     columnas_reemplazo = [
         "Calories", "Avg HR", "Max HR", "Total Ascent", "Total Descent",
         "Steps", "Min Elevation", "Max Elevation"
@@ -237,7 +235,6 @@ def final_result(df_user):
     df_user["Steps"] = df_user["Steps"].astype(str).str.replace(",", ".", regex=False)
     df_user["Steps"] = pd.to_numeric(df_user["Steps"], errors="coerce")
 
-    # --- 3. Renombrar columnas ---
     df_user = df_user.rename(columns={
         "Activity Type": "activity_type",
         "Date": "date",
@@ -257,7 +254,6 @@ def final_result(df_user):
         "Best Pace (s/km)": "best_pace_s_per_km"
     })
 
-    # --- 4. Procesamiento de fecha ---
     df_user["date"] = pd.to_datetime(df_user["date"], errors="coerce")
     hoy = pd.Timestamp(datetime.today())
 
@@ -277,7 +273,6 @@ def final_result(df_user):
     # Calcular peso basado en recencia
     df_user["peso_reciente"] = 1 / (df_user["days_ago"] + 1)
 
-    # --- 5. Crear lista de dicts para el modelo regresivo ---
     columnas_modelo = [
         "avg_pace_s_per_km",
         "avg_hr",
